@@ -12,6 +12,10 @@
 
 **Boundaries:** `.env.local` is restricted runtime/public configuration; `.env.supabase.setup` is separate operator configuration, ignored/mode600. Do not expose credentials, put operator connection in app/build, change old Monechai/Lead, or use paid features/trials/purchases. Push/deployment/DNS/provider subscriptions and notification schedules require separate explicit authorization. Preview availability and old tool sessions are never assumed. Remaining recovery/SMTP/business/photo/order/hosting/off-site/monitoring and recorded upstream tooling gates still block production launch.
 
+## Pushed to GitHub — 2026-10-16
+
+At owner request, prepared and pushed the checkout to a new private repo `shawon-builds/Monechai-website` (old recorded `contactshawonhasan-oss/Monechai-website` no longer resolves; authenticated login is `shawon-builds`). Commit `e136c61` (39 paths: admin workspace/shell, inventory/analytics views, catalog/order forms, E2E tests, docs) pushed to `origin/main`; local HEAD equals remote HEAD, tree clean. Pre-commit scans: no `.env` files staged (only placeholder `.env.example` tracked; `.env.local`/`.env.supabase.setup` ignored/mode600), no credential/token matches in staged tree or new untracked files. No deployment/DNS/paid action. Next remains Goal06 real product/photo acceptance per the continuation section above.
+
 ## Alignment task — 2026-10-16
 
 Owner requested audit/status alignment and a durable new-session plan. Reconciled the immutable October14 audit with later fixes and the new admin workspace. Updated current root instructions, continuation pointer, milestone index/provider summary and affected runbooks; kept historical evidence and original audit/archive intact. This is documentation work only: no application/provider changes, new business data, dependency upgrades or deployment. Documentation/consistency validation results are recorded at completion below.
