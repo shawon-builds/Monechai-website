@@ -1,0 +1,9 @@
+[Unit]
+Description=Notify Monechai operator of failed unit %i
+[Service]
+Type=oneshot
+User=monechai
+WorkingDirectory=/opt/monechai
+EnvironmentFile=/etc/monechai/ops.env
+ExecStart=/usr/bin/node /opt/monechai/scripts/ops-alert.mjs %i
+TimeoutStartSec=30

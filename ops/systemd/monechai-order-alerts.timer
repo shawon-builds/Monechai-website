@@ -1,0 +1,8 @@
+[Unit]
+Description=Process Monechai owner alert queue each minute
+[Timer]
+OnBootSec=1min
+OnUnitActiveSec=1min
+Persistent=true
+[Install]
+WantedBy=timers.target

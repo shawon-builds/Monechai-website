@@ -1,0 +1,8 @@
+[Unit]
+Description=Example daily Monechai app backup (approve RPO/retention before enabling)
+[Timer]
+OnCalendar=*-*-* 04:00:00 Asia/Dhaka
+Persistent=true
+RandomizedDelaySec=5min
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,14 @@
+[Unit]
+Description=Encrypted Monechai app database and referenced photos
+After=network-online.target
+OnFailure=monechai-ops-alert@%n.service
+[Service]
+Type=oneshot
+User=monechai-backup
+WorkingDirectory=/opt/monechai
+EnvironmentFile=/etc/monechai/backup.env
+ExecStart=/usr/bin/node /opt/monechai/scripts/backup.mjs
+# Add the chosen, tested independent upload command as ExecStartPost before enabling.
+# Docker CLI permissions are administrative; configure a reviewed operator account.
+TimeoutStartSec=30min
+UMask=0077

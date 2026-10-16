@@ -1,0 +1,127 @@
+{
+  "date": "2026-10-11",
+  "reason": "User requested fewer Markdown files with full preservation",
+  "destination": "docs/PROJECT_RECORD.md",
+  "archive_sha256": "0d64bb83eaba65337d51fb92be35ddbb918bf56007884b48c4743887208ae0a8",
+  "sources": [
+    {
+      "original_path": "docs/goals/GOAL_INDEX.md",
+      "sha256": "2a1e238f05298e19d8f18b797d7066b9e6bd1b28a3ed713b074db79a820a9f77",
+      "bytes": 11892,
+      "section": "plan-index",
+      "merged_body_sha256": "fac0c1c2ae25186ad9bfc88bd44db9af4d398d01d94969c553328aa39d64607b"
+    },
+    {
+      "original_path": "docs/goals/goal_01_foundation.md",
+      "sha256": "e8c775c6d28374c4f3f3f1ea38b1c1ba19f51d798596dc41381610d83f2ec2e1",
+      "bytes": 7144,
+      "section": "goal-01",
+      "merged_body_sha256": "e8c775c6d28374c4f3f3f1ea38b1c1ba19f51d798596dc41381610d83f2ec2e1"
+    },
+    {
+      "original_path": "docs/goals/goal_02_catalog.md",
+      "sha256": "134367e2c8ec340cb4c355e98cec363fd4dd0ba2e7111edd4c3b7d026f35a7b3",
+      "bytes": 6499,
+      "section": "goal-02",
+      "merged_body_sha256": "134367e2c8ec340cb4c355e98cec363fd4dd0ba2e7111edd4c3b7d026f35a7b3"
+    },
+    {
+      "original_path": "docs/goals/goal_03_storefront.md",
+      "sha256": "fbe215ec7056b1931a3fbf937fc416270bebd80068a354ec5895f46440b1d33c",
+      "bytes": 8903,
+      "section": "goal-03",
+      "merged_body_sha256": "fbe215ec7056b1931a3fbf937fc416270bebd80068a354ec5895f46440b1d33c"
+    },
+    {
+      "original_path": "docs/goals/goal_04_cart_checkout.md",
+      "sha256": "21e56c19cfb368cf1d9b35415c010eb1b5814a1909fad88f467671bb18649617",
+      "bytes": 10873,
+      "section": "goal-04",
+      "merged_body_sha256": "21e56c19cfb368cf1d9b35415c010eb1b5814a1909fad88f467671bb18649617"
+    },
+    {
+      "original_path": "docs/goals/goal_05_admin_auth.md",
+      "sha256": "e08b331ce1abfe1ffb5882c2b1a0e6cbab04efd37518dfba83fcd98d5c710ef0",
+      "bytes": 10185,
+      "section": "goal-05",
+      "merged_body_sha256": "686a3a1bcd712a44726d5066348273e94e9722b7cbc32cd22a86a5370f474e6e"
+    },
+    {
+      "original_path": "docs/goals/goal_06_admin_catalog.md",
+      "sha256": "dc33c6fccd12fc7c9dce891d4ec43cce98bd04074cb9bfb7f167b26a238bf12a",
+      "bytes": 5603,
+      "section": "goal-06",
+      "merged_body_sha256": "dc33c6fccd12fc7c9dce891d4ec43cce98bd04074cb9bfb7f167b26a238bf12a"
+    },
+    {
+      "original_path": "docs/goals/goal_07_order_management.md",
+      "sha256": "9037e41f3288f06f68f4bb115423701e816443989e946a8e8c521b3a4429fef6",
+      "bytes": 8290,
+      "section": "goal-07",
+      "merged_body_sha256": "9037e41f3288f06f68f4bb115423701e816443989e946a8e8c521b3a4429fef6"
+    },
+    {
+      "original_path": "docs/goals/goal_08_i18n_seo_security.md",
+      "sha256": "44544124848ddcdb821676d6c9906ff0f6919756726a98424c7b4374ad1c2ad0",
+      "bytes": 7486,
+      "section": "goal-08",
+      "merged_body_sha256": "44544124848ddcdb821676d6c9906ff0f6919756726a98424c7b4374ad1c2ad0"
+    },
+    {
+      "original_path": "docs/goals/goal_09_testing.md",
+      "sha256": "dc49faa4bbfd6f09c67197bcf69787f5f7760a10309e2249b52ca98e3dd06ca7",
+      "bytes": 6842,
+      "section": "goal-09",
+      "merged_body_sha256": "dc49faa4bbfd6f09c67197bcf69787f5f7760a10309e2249b52ca98e3dd06ca7"
+    },
+    {
+      "original_path": "docs/goals/goal_10_deployment_hardening.md",
+      "sha256": "611e8831ff7fd0f1f013eb8b18fef568e8303775946836a76b5d7c43920ec5fb",
+      "bytes": 10511,
+      "section": "goal-10",
+      "merged_body_sha256": "611e8831ff7fd0f1f013eb8b18fef568e8303775946836a76b5d7c43920ec5fb"
+    },
+    {
+      "original_path": "docs/goals/goal_11_online_payments.md",
+      "sha256": "0f15e50d24396808b203cc2b2b367f88b26c80d583e2dba4eb3032275257b39e",
+      "bytes": 3589,
+      "section": "goal-11",
+      "merged_body_sha256": "bef2f055d266e2f8c4ab24693f1f04d7bdbee485064907d6afcea09f1002b4aa"
+    },
+    {
+      "original_path": "docs/PROJECT_AUDIT.md",
+      "sha256": "5f94dd92a2d9f12f27ebd9064631f19cfe6f95d54d778adcb9365f6da466504c",
+      "bytes": 27035,
+      "section": "project-audit",
+      "merged_body_sha256": "cd5f3082c9e087e1c320c4d2e014e5d393aa50f9b44b22b5f61483d9183395f4"
+    },
+    {
+      "original_path": "docs/STORE_OPERATING_PLAN.md",
+      "sha256": "4a1c4b9e60f5a8052ebd32c18acb4ee22d0f87ab1c2eb01787528b1ffc12058f",
+      "bytes": 7036,
+      "section": "store-operating-plan",
+      "merged_body_sha256": "ddb347bf047db95c38f9be72809a1d7766d69914867d391470f810bd645596ab"
+    },
+    {
+      "original_path": "docs/OWNER_SETUP_CHECKLIST.md",
+      "sha256": "049b8089ff5ca7b1b6fa63da16333e7f58c8b894ee9437631d5aeae199fd866a",
+      "bytes": 10184,
+      "section": "owner-setup-checklist",
+      "merged_body_sha256": "049b8089ff5ca7b1b6fa63da16333e7f58c8b894ee9437631d5aeae199fd866a"
+    },
+    {
+      "original_path": "docs/ACCESS_REQUIRED.md",
+      "sha256": "d96dcffc5de008cd76b27eee5a8d33e1ca04ccc08780344cb962b42ed0498b66",
+      "bytes": 14052,
+      "section": "access-required",
+      "merged_body_sha256": "a1d5cc08ee5e213ef74663000f5ddc703de0d3d8b8643a39f2726a3cf4233911"
+    },
+    {
+      "original_path": "docs/PRODUCTION_SERVICES.md",
+      "sha256": "7b7ccdcb6d9e0f19c7609ff83ce355045805a5dd79cec5fa4b4770985f9339c0",
+      "bytes": 22715,
+      "section": "production-services",
+      "merged_body_sha256": "029e137990a02cb9fc475372fc894ec6d08566e9d07ff83db02d1f8c954a21af"
+    }
+  ]
+}

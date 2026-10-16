@@ -1,0 +1,61 @@
+{
+  "name": "monechai-store",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "postbuild": "node scripts/prepare-standalone.mjs",
+    "start": "node .next/standalone/server.js",
+    "lint": "eslint src scripts tests playwright.config.ts drizzle.config.ts next.config.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "node scripts/run-tests.mjs",
+    "test:e2e": "playwright test",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:seed": "node scripts/seed-demo.mjs --demo",
+    "shipping:configure": "node scripts/configure-shipping.mjs",
+    "test:ci": "node scripts/run-tests.mjs --require-db",
+    "ops:preflight": "node scripts/preflight.mjs",
+    "ops:health": "node scripts/health-check.mjs",
+    "ops:backup": "node scripts/backup.mjs",
+    "ops:restore-drill": "node scripts/restore-drill.mjs",
+    "test:ops": "node tests/ops/backup-drill.mjs",
+    "ops:order-alerts": "node scripts/order-alert-worker.mjs",
+    "postinstall": "node scripts/patch-braces.mjs"
+  },
+  "dependencies": {
+    "@supabase/ssr": "^0.12.7",
+    "@supabase/supabase-js": "^2.117.2",
+    "drizzle-orm": "^0.45.3",
+    "next": "^16.3.8",
+    "nodemailer": "^10.1.0",
+    "postgres": "^3.4.9",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "server-only": "^0.0.1",
+    "sharp": "0.35.5",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "@playwright/test": "^1.63.0",
+    "@types/node": "^22.15.0",
+    "@types/nodemailer": "^8.0.2",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "drizzle-kit": "^0.31.11",
+    "eslint": "^9.39.0",
+    "eslint-config-next": "^16.3.8",
+    "tsx": "^4.23.15",
+    "typescript": "^5.9.3"
+  },
+  "engines": {
+    "node": ">=22.23.3 <23"
+  },
+  "overrides": {
+    "@esbuild-kit/core-utils": {
+      "esbuild": "0.28.2"
+    }
+  }
+}

@@ -1,0 +1,12 @@
+[Unit]
+Description=Monechai app/database health check
+After=network-online.target
+OnFailure=monechai-ops-alert@%n.service
+
+[Service]
+Type=oneshot
+User=monechai
+WorkingDirectory=/opt/monechai
+EnvironmentFile=/etc/monechai/ops.env
+ExecStart=/usr/bin/node /opt/monechai/scripts/health-check.mjs
+TimeoutStartSec=20
