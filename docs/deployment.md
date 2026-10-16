@@ -1,5 +1,7 @@
 # VPS deployment runbook (draft until live acceptance)
 
+Current handoff: owner account/MFA and the local admin workspace are verified, but real product/photo/order/recovery and host/backup/monitoring gates remain. The next task is Goal06 acceptance, not deployment. Follow the [current readiness map](PROJECT_RECORD.md#current-readiness-and-next-session-plan); old missing-owner/pause descriptions are history. No push/deployment/DNS change is authorized merely by resuming this runbook.
+
 This app needs a running Next.js **Node** server and managed PostgreSQL (Supabase recommended); static HTML hosting will not process orders. Goal 10 started early: Docker builds locally, but production deployment is **not certified** while goals 05–09 and owner configuration remain open. Single instance only: multi-instance deployments need cache coordination and consistent Next server-function encryption keys/build IDs. See [Next self-hosting](https://nextjs.org/docs/app/guides/self-hosting).
 
 ## Owner prerequisites and configuration

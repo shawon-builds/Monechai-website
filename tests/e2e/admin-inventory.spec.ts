@@ -4,12 +4,13 @@ import { createHmac } from "node:crypto";
 import { resolve } from "node:path";
 import postgres from "postgres";
 import AxeBuilder from "@axe-core/playwright";
+import sharp from "sharp";
 
 test("local provider fixture exercises production inventory form, stale stock, membership and AAL2 gates", async ({ page, browser }, testInfo) => {
-  test.setTimeout(120000);
+  test.setTimeout(180000);
   const sql = postgres(process.env.TEST_DATABASE_URL!, { ssl: false, max: 2 });
   const actor = crypto.randomUUID(), slug = `browser-stock-${crypto.randomUUID()}`;
-  let category = "", product = "", variant = "";
+  let category = "", product = "", variant = "", inlineCategory = "";
   const errors: string[] = [], diagnostics: string[] = [];
   page.on("pageerror", error => errors.push(error.message));
   page.on("console", message => { if (message.type() === "error") diagnostics.push(message.text()); });
@@ -38,6 +39,49 @@ test("local provider fixture exercises production inventory form, stale stock, m
     await page.goto(path); await expect(page).toHaveURL(/\/admin\/login/);
     await session("aal1"); await page.goto(path); await expect(page).toHaveURL(/\/admin\/security/);
     await session("aal2");
+    await page.goto(`${origin}/admin`);
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText("Your store, at a glance.");
+    await expect(page.getByRole("navigation", { name: "Admin navigation" }).getByRole("link")).toHaveCount(7);
+    await expect(page.getByRole("link", { name: "Manage product photos", exact: true })).toBeVisible();
+    await page.goto(`${origin}/admin/inventory?stock=low`);
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText("Inventory");
+    await expect(page.getByRole("link", { name: "Inventory browser fixture", exact: true })).toBeVisible();
+    await page.goto(`${origin}/admin/analytics?days=7`);
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText("Sales & order analytics");
+    await expect(page.getByRole("combobox", { name: "Reporting period" })).toHaveValue("7");
+    await expect(page.getByText("Net recorded collections", { exact: true })).toBeVisible();
+    await page.goto(`${origin}/admin/products/new`);
+    const draftForm = page.locator("form").filter({ has: page.getByRole("heading", { name: "Product details", exact: true }) });
+    await draftForm.getByRole("textbox", { name: "English name", exact: true }).fill("Unsaved product fixture");
+    const categoryDetails = page.locator("details.admin-inline-category");
+    await categoryDetails.locator("summary").click();
+    const inlineSlug = `inline-${crypto.randomUUID()}`;
+    await categoryDetails.getByRole("textbox", { name: "Slug", exact: true }).fill(inlineSlug);
+    await categoryDetails.getByRole("textbox", { name: "English name", exact: true }).fill("Inline category fixture");
+    await categoryDetails.getByRole("button", { name: "Save category", exact: true }).click();
+    await expect(categoryDetails.getByRole("status")).toHaveText("Category saved.");
+    [{ id: inlineCategory }] = await sql`select id from categories where slug=${inlineSlug}`;
+    await expect(page.getByRole("combobox", { name: "Category", exact: true }).getByRole("option", { name: "Inline category fixture", exact: true })).toHaveCount(1);
+    await expect(draftForm.getByRole("textbox", { name: "English name", exact: true })).toHaveValue("Unsaved product fixture");
+    await page.goto(path);
+    const upload = page.locator("form.admin-photo-upload");
+    const pixels = await sharp({ create: { width: 32, height: 32, channels: 3, background: "#b99d70" } }).png().toBuffer();
+    await upload.locator('input[type="file"]').setInputFiles({ name: "preview-fixture.png", mimeType: "image/png", buffer: pixels });
+    await expect(upload.getByRole("img", { name: "Selected photo preview" })).toBeVisible();
+    await expect(upload.getByRole("button", { name: "Upload photo", exact: true })).toBeEnabled();
+    await upload.locator('input[type="file"]').setInputFiles({ name: "unsupported.txt", mimeType: "text/plain", buffer: Buffer.from("fixture") });
+    await expect(upload.getByRole("alert")).toContainText("no larger than 5 MB");
+    await expect(upload.getByRole("button", { name: "Upload photo", exact: true })).toBeDisabled();
+    await page.reload();
+    for (const route of ["/admin", "/admin/products", "/admin/products/new", "/admin/inventory", "/admin/analytics?days=7", "/admin/orders", "/admin/settings", "/admin/categories"]) {
+      for (const width of [320, 768, 1440]) {
+        await page.setViewportSize({ width, height: 900 }); await page.goto(`${origin}${route}`);
+        await expect(page.getByRole("navigation", { name: "Admin navigation" })).toBeVisible();
+        expect(await page.evaluate(() => document.documentElement.scrollWidth), `${route} at ${width}px`).toBeLessThanOrEqual(width + 1);
+        expect((await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"]).analyze()).violations, `${route} at ${width}px`).toEqual([]);
+        await page.screenshot({ path: testInfo.outputPath(`workspace-${route.replace(/[^a-z0-9]/gi, "-")}-${width}.png`), fullPage: true });
+      }
+    }
     for (const width of [320, 375, 768, 1024, 1440]) {
       await page.setViewportSize({ width, height: 900 }); await page.goto(path);
       await expect(page.getByRole("heading", { level: 1 })).toHaveText("Inventory browser fixture");
@@ -97,6 +141,7 @@ test("local provider fixture exercises production inventory form, stale stock, m
     await sql`delete from admin_mutation_history where actor_user_id=${actor}`;
     if(product) await sql`delete from products where id=${product}`;
     if(category) await sql`delete from categories where id=${category}`;
+    if(inlineCategory) await sql`delete from categories where id=${inlineCategory}`;
     await sql`delete from admin_members where user_id=${actor}`; await sql.end();
   }
 });

@@ -1,5 +1,7 @@
 # Monechai architecture (work in progress)
 
+Current implementation/acceptance map is in the [new-session plan](docs/PROJECT_RECORD.md#current-readiness-and-next-session-plan). The admin now has a dedicated workspace, inline category creation, product photo preview/media controls, inventory view and actual order/COD reports. Owner login/AAL2 access is verified; real photo/product/order, recovery/session and operations acceptance remain. Visitor/conversion/profit tracking is not implied by the new reports.
+
 One Next.js 16 App Router / TypeScript **modular monolith**: `src/app` routes and layouts; `src/components` UI; `src/features/catalog`, `cart`, `checkout`, `admin` domain operations; `src/db/schema` and checked-in Drizzle SQL migrations; `src/i18n` translations; `src/lib` environment, shared utilities and Supabase clients; `src/proxy.ts` session refresh. PostgreSQL stores products, orders and settings; Supabase Auth provides identity; `admin_members` is the explicit authorization whitelist. Supabase Storage is the intended home for real product images. Local upload, decode, publish gating and the Storage policy artifact exist; a live owner bucket has not been accepted. Managed PostgreSQL/Supabase is external to the VPS. See [deployment](docs/deployment.md) and [bootstrap](docs/admin-bootstrap.md).
 
 ## Data and request boundaries

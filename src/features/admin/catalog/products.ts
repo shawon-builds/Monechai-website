@@ -53,6 +53,7 @@ export async function listAdminProducts(db: Db, page: number, filters: { q?: str
   const items = await db.select({ id: products.id, nameEn: products.nameEn, slug: products.slug,
     sku: products.sku, isPublished: products.isPublished, isDemo: products.isDemo, priceMinor: products.priceMinor,
     categoryName: categories.nameEn, stock: sql<string | null>`(select sum(v.stock_quantity)::text from product_variants v where v.product_id=${products.id} and v.is_active=true)`,
+    primaryStorageKey: sql<string | null>`(select i.storage_key from product_images i where i.product_id=${products.id} and i.is_primary=true limit 1)`,
   }).from(products).innerJoin(categories, eq(products.categoryId, categories.id))
     .where(where).orderBy(desc(products.createdAt), asc(products.id)).limit(30).offset((safePage - 1) * 30);
   return { items, total: count.total, page: safePage };

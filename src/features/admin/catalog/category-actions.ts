@@ -21,6 +21,8 @@ function pgCode(error: unknown): string | undefined {
 function refreshCatalog() {
   revalidatePath("/admin/categories");
   revalidatePath("/admin/products");
+  revalidatePath("/admin/products/new");
+  revalidatePath("/admin");
   revalidatePath("/");
   revalidatePath("/shop");
   revalidatePath("/products/[slug]", "page");

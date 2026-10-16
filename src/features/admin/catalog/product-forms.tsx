@@ -14,19 +14,22 @@ type Variant = { id: string; sku: string; label: string; labelBn?: string | null
 export function ProductForm({ product, categories }: { product?: Product; categories: { id: string; nameEn: string }[] }) {
   const [state, action, pending] = useActionState(saveProductAction.bind(null, product?.id ?? null), initial);
   return <form action={action} className="admin-form admin-card">
-    <h2>{product ? "Edit product" : "New draft product"}</h2>
-    <p>BDT prices accept up to two decimal places; stored as integer poisha. Drafts are not shown in the store.</p>
-    <label>Slug <input name="slug" required maxLength={150} defaultValue={product?.slug} /></label>
-    <label>Product SKU <input name="sku" required maxLength={100} defaultValue={product?.sku} /></label>
-    <label>Category <select name="categoryId" required defaultValue={product?.categoryId ?? ""}>
-      <option value="" disabled>Select a category</option>{categories.map((c) => <option key={c.id} value={c.id}>{c.nameEn}</option>)}
-    </select></label>
-    <label>English name <input name="nameEn" required maxLength={200} defaultValue={product?.nameEn} /></label>
+    <h2>Product details</h2>
+    <p>Drafts stay private until you add a photo and publish. Enter prices in taka (BDT).</p>
+    <div className="admin-form-grid">
+    <label>English name <input name="nameEn" required maxLength={200} defaultValue={product?.nameEn} placeholder="e.g. Cotton everyday tote" /></label>
     <label>Bangla name (optional) <input name="nameBn" maxLength={200} defaultValue={product?.nameBn ?? ""} /></label>
+    <label>Slug <input name="slug" required maxLength={150} defaultValue={product?.slug} placeholder="e.g. cotton-everyday-tote" /><small>The product’s URL name. Use lowercase letters, numbers, and hyphens.</small></label>
+    <label>Product SKU <input name="sku" required maxLength={100} defaultValue={product?.sku} placeholder="e.g. TOTE-001" /><small>Your unique reference for this product.</small></label>
+    <label>Category <select name="categoryId" required disabled={!categories.length} defaultValue={product?.categoryId ?? ""}>
+      <option value="" disabled>{categories.length ? "Select a category" : "Create a category above first"}</option>{categories.map((c) => <option key={c.id} value={c.id}>{c.nameEn}</option>)}
+    </select></label>
+    </div>
     <label>English description <textarea name="descriptionEn" maxLength={10000} rows={4} defaultValue={product?.descriptionEn ?? ""} /></label>
     <label>Bangla description <textarea name="descriptionBn" maxLength={10000} rows={4} defaultValue={product?.descriptionBn ?? ""} /></label>
-    <label>Price (BDT) <input name="priceMinor" inputMode="decimal" required defaultValue={amount(product?.priceMinor)} /></label>
+    <div className="admin-form-grid"><label>Price (BDT) <input name="priceMinor" inputMode="decimal" required defaultValue={amount(product?.priceMinor)} placeholder="0.00" /></label>
     <label>Compare-at price (BDT, optional) <input name="compareAtMinor" inputMode="decimal" defaultValue={amount(product?.compareAtMinor)} /></label>
+    </div>
     {!product && <fieldset><legend>First variant (inventory)</legend>
       <label>Variant SKU <input name="variantSku" required maxLength={100} /></label>
       <label>Variant label <input name="variantLabel" required maxLength={150} defaultValue="Default" /></label>
@@ -34,7 +37,7 @@ export function ProductForm({ product, categories }: { product?: Product; catego
     </fieldset>}
     <label className="admin-check"><input type="checkbox" name="isFeatured" defaultChecked={product?.isFeatured} /> Featured</label>
     {product && <label className="admin-check"><input type="checkbox" name="isPublished" defaultChecked={product.isPublished} /> Published (requires an uploaded primary photo; demos cannot publish)</label>}
-    <button type="submit" className="button button-dark" disabled={pending || !categories.length}>{pending ? "Saving…" : "Save product"}</button>
+    <button type="submit" className="button button-dark" disabled={pending || !categories.length}>{pending ? "Saving…" : product ? "Save product" : "Save draft & add photos"}</button>
     <p role="status" aria-live="polite" className={state.message && state.message !== "Product saved." ? "checkout-error" : ""}>{state.message}</p>
     {state.errors && <ul className="checkout-error">{Object.entries(state.errors).map(([field, errors]) => <li key={field}>{field}: {errors.join(", ")}</li>)}</ul>}
   </form>;

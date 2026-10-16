@@ -1,5 +1,7 @@
 # Product image setup and validation
 
+**Current owner workflow,2026-10-16:** Admin → New product can create a category inline. Save the product draft, then use its prominent Photos section for selection/preview/upload, cover selection and ordering/removal. Existing backend/bucket/policies and owner login/MFA are configured; do not repeat setup. Actual owner-supplied upload/publication/Storage-denial acceptance is the next Goal06 task. Use the owner's normal browser for personal actions; built-in browser access is currently unavailable. See [current acceptance order](PROJECT_RECORD.md#current-readiness-and-next-session-plan).
+
 The app now uploads JPEG/PNG/WebP (5 MiB maximum), checks signatures and bounded pixels/animation, strips metadata and re-encodes WebP. Only an authenticated admin Server Action can upload. Each file has a random key under the product UUID; DB rows store verification time and SHA-256 content hash. Publishing checks the primary object still exists and matches its recorded bytes, plus at least one active variant. Demo products cannot publish. Removing a published primary image unpublishes the product; selecting another primary or deactivating the last variant is guarded.
 
 ## Owner backend setup

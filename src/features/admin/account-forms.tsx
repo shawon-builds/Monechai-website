@@ -26,9 +26,9 @@ export function AuthenticatorForms({ factors }: { factors: { id: string; friendl
   return <>{!factors.length && <form action={enroll} className="admin-form admin-card"><h2>Set up your authenticator</h2>
     <button className="button button-dark" disabled={enrolling}>Create authenticator setup</button><p role="status">{enrollment.message}</p>
     {enrollment.qrCode && <Image src={enrollment.qrCode} alt="Private authenticator enrollment QR code" width={240} height={240} unoptimized />}
-  </form>}<form action={verify} className="admin-form admin-card"><h2>Verify authenticator</h2>
+  </form>}{!available.length ? <div className="admin-card admin-auth-help"><h2>Next: verify your authenticator</h2><p>Create your authenticator setup above and scan its QR code. The verification form will appear here when setup is ready.</p></div> : <form action={verify} className="admin-form admin-card"><h2>Verify authenticator</h2>
     <label>Authenticator<select name="factorId" required>{available.map(factor => <option key={factor.id} value={factor.id}>{factor.friendly_name || "Owner authenticator"}</option>)}</select></label>
     <label>Six-digit code<input name="code" required pattern="[0-9]{6}" maxLength={6} inputMode="numeric" autoComplete="one-time-code" /></label>
     <button className="button button-dark" disabled={pending || !available.length}>Verify and continue</button><p role="status">{state.message}</p>
-  </form></>;
+  </form>}</>;
 }

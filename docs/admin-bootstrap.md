@@ -1,5 +1,7 @@
 # First admin bootstrap (owner operation)
 
+**Current project note,2026-10-16:** The owner account/membership and actual AAL2 dashboard access are already verified on `srlwuwytnktgynsffepu`. Do not repeat the bootstrap below to resume this store. Next is real product/photo acceptance; recovery SMTP, logout/expiry/global invalidation/member revocation remain. These steps are a reference for an explicitly authorized new identity/backend, with the [current handoff](SUPABASE_SETUP_HANDOFF.md) taking precedence over old setup states.
+
 The app does not create admin accounts or offer public signup. Only a Supabase Auth user **also** present in `public.admin_members` may read admin data or mutate it. Do not insert unverified browser IDs or put a service-role key in this app.
 
 1. In your Supabase project, obtain **Project URL** and **publishable key** under **Project Settings → API / Connect**. Set `NEXT_PUBLIC_SUPABASE_URL` (PUBLIC URL) and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` (PUBLIC, publishable key only) in the deployment environment. Do **not** use a `service_role` or secret key here. Set `DATABASE_URL` (SECRET, server-only, Supabase Dashboard → Connect) for the app and `DIRECT_URL` (SECRET, direct DB connection if using a pooler) for migrations. Never commit `.env.local`. Set public variables **before building** Next.js (they are build-time inlined), and rebuild/redeploy if the project URL or publishable key changes.

@@ -18,10 +18,10 @@ export default async function AdminOrderPage({ params }: { params: Promise<{ id:
   const { order: o, items, history, paymentHistory, inventoryHistory } = detail;
   const [alert] = await getDb().select().from(orderNotifications).where(eq(orderNotifications.orderId, id));
   return <section aria-label="Admin" className="admin-catalog">
-    <nav aria-label="Admin"><Link href="/admin/orders">Orders</Link> / {o.orderNumber}</nav>
-    <h1>Order {o.orderNumber}</h1>
+    <nav aria-label="Admin" className="admin-breadcrumb"><Link href="/admin/orders">Orders</Link><span>/</span>Order details</nav>
+    <div className="admin-page-heading"><div><p className="admin-kicker">Order workspace</p><h1>{o.orderNumber}</h1><p>Review fulfillment, customer details, and recorded payments.</p></div></div>
     <p>Placed <time dateTime={o.createdAt.toISOString()}>{o.createdAt.toLocaleString("en-BD", { timeZone: "Asia/Dhaka" })}</time> · Updated <time dateTime={o.updatedAt.toISOString()}>{o.updatedAt.toLocaleString("en-BD", { timeZone: "Asia/Dhaka" })}</time></p>
-    <p>Status: <strong>{o.status.replaceAll("_", " ")}</strong> · Payment: {o.paymentMethod.toUpperCase()} / {o.paymentStatus}</p>
+    <div className="admin-order-state">Status: <span className="admin-status">{o.status.replaceAll("_", " ")}</span><span>Payment: {o.paymentMethod.toUpperCase()} / {o.paymentStatus}</span><strong>{formatBdt(o.totalMinor)}</strong></div>
     <OrderStatusForm id={id} next={nextStatuses(o.status)} />
     {o.status === "delivered" && o.paymentMethod === "cod" && o.paymentStatus === "pending" && <CodPaymentForm id={id} />}
     {o.status === "returned" && <ReturnOperations id={id} released={o.inventoryReleased} paid={o.paymentStatus === "paid"} />}
